@@ -16,9 +16,12 @@ class CartSubmitBlock extends Component {
 
     render() { 
         const {totalAmount,couponApplied,removeCoupon,cartCredits,cartCreditsStatusToggle,GST} = this.props;
+        const totalItemsAmount = totalAmount
+        const discountAmount = couponApplied.length!==0 ? Math.round(( ((couponApplied[0].discount*totalAmount)/100) + Number.EPSILON) * 100) / 100 : 0
         let finalTotalAmount = couponApplied.length!==0 ? totalAmount-(couponApplied[0].discount*totalAmount)/100 : totalAmount
-        const GSTApplied = (finalTotalAmount*GST)/100
+        const GSTApplied = Math.round(( ((finalTotalAmount*GST)/100) + Number.EPSILON) * 100) / 100
         finalTotalAmount += GSTApplied
+        finalTotalAmount = Math.round((finalTotalAmount + Number.EPSILON) * 100) / 100
         let  creditUsed = 0;
         if(cartCredits.status){
             if(finalTotalAmount>=cartCredits.value){
@@ -31,13 +34,23 @@ class CartSubmitBlock extends Component {
         }
 
         return ( 
-            <div className="d-flex flex-column text-center bg-light text-dark">
+            <div className="d-flex flex-column text-center text-dark">
                 <div className="d-flex flex-column p-0">
+                    
+                    <div className="row mx-0 mb-2 align-items-center">
+                        <div className="col-md-6 d-flex justify-content-center align-items-center">
+                            <h5>Total Items Amount</h5>
+                        </div>
+                        <div className="col-md-6 d-flex justify-content-center align-items-center">
+                            <h5><b>₹{totalItemsAmount}</b></h5>
+                        </div>
+                    </div>
+
                     { (couponApplied.length===0) && (
                         <React.Fragment>
-                            <div className="row mx-0 mt-4 mb-2 align-items-center">
+                            <div className="row mx-0 m-1 align-items-center">
                                 <div className="col-md-6">
-                                    <h4><b>Discount Coupon</b></h4>
+                                    <h5>Discount Coupon</h5>
                                 </div>
                                 <div className="col-md-6">
                                     <input onKeyUp={this.validateCouponCaller} type="text" className="form-control" placeholder="Coupon"/>
@@ -48,29 +61,29 @@ class CartSubmitBlock extends Component {
                     
                     { (couponApplied.length!==0) && (
                         <React.Fragment>
-                            <div className="row mx-0 my-2 align-items-center">
+                            <div className="row mx-0 m-1 align-items-center">
                                 <div className="col-md-6 d-flex justify-content-center align-items-center">
-                                    <h4><b>Coupon Applied</b></h4>
+                                    <h5>Coupon Applied</h5>
                                 </div>
                                 <div className="col-md-6 d-flex justify-content-center align-items-center">
                                     <span className="badge badge-primary p-2 mr-2" style={{fontSize:20}}>{couponApplied[0].name}</span>
+                                    <span className="badge badge-primary p-2 mr-2" style={{fontSize:20}}>₹{discountAmount}</span>
                                     <button onClick={()=> removeCoupon(couponApplied[0].name) } className="btn btn-danger m-1">&times;</button>
                                 </div>
                             </div>
                         </React.Fragment>
                     )}
 
-                    <div className="row mx-0 my-2 align-items-center">
-                        <div className="col-md-6 my-3">
-                            <h4><b>Cart Credits</b></h4>
+                    <div className="row mx-0 m-2 align-items-center">
+                        <div className="col-md-6">
+                            <h5>Cart Credits (₹{cartCredits.value})</h5>
                         </div>
-                        <div className="col-md-6 my-3">
+                        <div className="col-md-6">
                             <div className="row">
-                                <h3 className="col-md-4"><b>₹{cartCredits.value}</b></h3>
                                 { (cartCredits.status) && (<div className="col-md-2">
-                                                                <span style={{fontSize:16}} className="badge badge-primary py-2">Used ₹{creditUsed}</span>
+                                                                <span style={{fontSize:16}} className="badge badge-primary m-1 py-2">Used ₹{creditUsed}</span>
                                                         </div>) }
-                                <div className="cartCreditToggler col-md-6">
+                                <div className={ cartCredits.status ? "cartCreditToggler m-1 col-md-6" : "cartCreditToggler m-1 col-md-12" }>
                                     <label className="switch">
                                         <input type="checkbox" checked={ (cartCredits.status) ? true : "" } onChange={cartCreditsStatusToggle} />
                                         <span className="slider round"></span>
@@ -80,21 +93,21 @@ class CartSubmitBlock extends Component {
                         </div>
                     </div>
                     
-                    <div className="row mx-0 mt-2 mb-4 align-items-center">
+                    <div className="row mx-0 mb-2 align-items-center">
                         <div className="col-md-6 d-flex justify-content-center align-items-center">
-                            <h4><b>GST Applied ({GST}%)</b></h4>
+                            <h5>GST Applied ({GST}%)</h5>
                         </div>
                         <div className="col-md-6 d-flex justify-content-center align-items-center">
-                            <h4><b>₹{GSTApplied}</b></h4>
+                            <h5><b>₹{GSTApplied}</b></h5>
                         </div>
                     </div>
 
                     <div className="row m-0 align-items-center">
                         <div className="col-md-6">
-                            <h4>Total Amount: ₹{ finalTotalAmount }</h4>
+                            <h5><b>Total Amount: ₹{ finalTotalAmount }</b></h5>
                         </div>
                         <div className="col-md-6 p-0">
-                            <button className="btn btn-lg btn-block btn-success" style={{borderRadius:0}}>Order</button>
+                            <button className="btn btn-lg btn-block btn-success">Order</button>
                         </div>
                     </div>
                 </div>

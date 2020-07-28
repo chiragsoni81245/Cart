@@ -11,8 +11,7 @@ class Item extends Component {
                                     width : "3em"
                                 },
             quantity :{ fontSize:20 },
-            itemImg : { width: "350px", height: "350px" },
-            itemCard : { width: "400px" }
+            itemCard : { width: "20em" }
         }
     }
 
@@ -41,8 +40,7 @@ class Item extends Component {
                         <FontAwesomeIcon icon={faTrash} />
                 </button><br/>
                 <h3 className="m-2">
-                    Total&nbsp;
-                    <span className="badge badge-success">₹{ item.price*quantity }</span>
+                    <span className="badge badge-success">Total&nbsp;&nbsp;₹{ item.price*quantity }</span>
                 </h3>    
             </div>
         );
@@ -52,7 +50,7 @@ class Item extends Component {
         const {item,quantity,onIncrement} = this.props;
         return ( 
             <div className="card text-center p-3 m-3 shadow-sm" style={this.state.style.itemCard}>
-                <img src={ item.img } className="mx-auto" alt="" style={this.state.style.itemImg} />
+                <img src={ item.img } className="mx-auto img-fluid" alt="" />
                 <h3 className="mt-2 mb-3"><b>{ item.name }</b></h3>
                 <p>
                     Price&nbsp;&nbsp;

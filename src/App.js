@@ -5,6 +5,7 @@ import Item from './components/item'
 import item1 from './imgs/item1.jpg'
 import "./App.css"
 
+
 class App extends Component {
 
   componentDidUpdate(prevProps, prevStates){
@@ -72,7 +73,7 @@ class App extends Component {
   }
 
   handleCartCreditsStatusToggle = () =>{
-    const cartCredits = this.state.cartCredits
+    const cartCredits = {...this.state.cartCredits};
     cartCredits.status = (this.state.cartCredits.status) ? false : true;
     this.setState({ cartCredits })
   }

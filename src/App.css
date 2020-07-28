@@ -7,10 +7,16 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.9); /* Black background with opacity */
+  background-color: rgba(0,0,0,0.95); /* Black background with opacity */
   z-index: 1021; /* Specify a stack order in case you're using a different order for other elements */
   cursor: pointer; /* Add a pointer on hover */
 }
+
+.modal{
+  height: 90%;
+  overflow:auto !important;
+}
+
 
 #cart .cartItemContainer{
   overflow-y: auto;
