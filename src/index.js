@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css'
 import io from "socket.io-client";
 
-var socket = io('http://0.0.0.0:5000/test')
+var socket = io('http://18.217.85.9:5000/test')
 
 socket.on("connect",()=>{ console.log("Connected!!!") })
 
