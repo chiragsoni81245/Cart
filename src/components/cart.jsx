@@ -38,7 +38,7 @@ class Cart extends Component {
 
                     { (this.props.cartItems.length!==0) && (
                                             <div id="cart"  className="rounded mx-auto">
-                                                <div className="cartItemContainer card-deck rounded ">
+                                                <div className="cartItemContainer card-columns rounded ">
                                                     { this.props.cartItems.map(item=><CartItem
                                                                                         key={item.id}
                                                                                         item={item}

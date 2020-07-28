@@ -13,9 +13,7 @@ class CartItem extends Component {
         return (
             <div className="card my-2">
                 <div className="d-flex flex-column">
-                    <div className="">
-                        <img src={item.img} alt="" className="img-fluid" />
-                    </div>
+                    <img src={item.img} alt="" className="img-fluid" />
                     <div className="d-flex flex-column my-3 align-items-center text-dark">
                         <h2 className="">{item.name}</h2>
                         <div className="text-center">
