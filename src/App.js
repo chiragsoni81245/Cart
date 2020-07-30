@@ -23,7 +23,7 @@ class App extends Component {
     }
   }
 
-  state = { 
+  state = {
     open: false,
     cartState : false,
     coupon :[
